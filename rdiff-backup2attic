@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+# Copyright (c) 2015 Heikki Hokkanen <hoxu at users.sf.net>
+# License: GPLv2 or later
+import datetime
+import os
+import re
+import subprocess
+import sys
+
+# TODO make incremental (can run multiple times)
+# TODO usage: $0 rdiff-backup-repo repo.attic
+# TODO option: archive prefix for "attic create"
+# TODO option: tmpdir
+
+def fail(msg):
+    print(msg)
+    sys.exit(1)
+
+def parse_rdiff_increments(lines):
+    increments = []
+    for i in lines[1:]:
+        m = re.search(' *increments\.[^\.]+\.dir   (.*)', i)
+        datestring = None
+        if m:
+            datestring = m.group(1)
+        m = re.search('Current mirror: (.*)', i)
+        if m:
+            datestring = m.group(1)
+        stamp = datetime.datetime.strptime(datestring, '%a %b %d %H:%M:%S %Y')
+        increments.append(stamp.strftime('%Y-%m-%dT%H:%M:%S')) # FIXME timezone
+    return increments
+
+def parse_attic_archives(lines):
+    archives = []
+    for line in lines:
+        archives.append(line.split(' ')[0])
+    return archives
+
+def run():
+    src = sys.argv[1]
+    dst = sys.argv[2]
+
+    # check that source is rdiff-backup repo
+    if not os.path.exists(os.path.join(src, 'rdiff-backup-data')):
+        fail('"%s" does not look like rdiff-backup repository' % src)
+
+    # check that destination is attic repo
+    if not os.path.exists(os.path.join(dst, 'config')):
+        fail('"%s" does not look like attic repository' % dst)
+
+    output = subprocess.check_output(['rdiff-backup', '--list-increments', src]).split('\n')
+    increments = parse_rdiff_increments(output)
+
+    # TODO get attic archive list
+    attic = subprocess.check_output(['attic', 'list'])
+    archives = []
+
+    for increment in increments:
+        #  check whether attic contains rdiff-backup increment as archive
+        if increment in archives:
+            print('Skipping already converted increment "%s"' % increment)
+        # TODO restore rdiff-backup increment
+        # TODO run attic create on it
+        # TODO delete temp dir
+
+    # TODO restore current too
+
+if __name__ == '__main__':
+    pass
