@@ -19,6 +19,8 @@ def fail(msg):
 def parse_rdiff_increments(lines):
     increments = []
     for i in lines[1:]:
+        if len(i) == 0:
+            continue
         m = re.search(' *increments\.[^\.]+\.dir   (.*)', i)
         datestring = None
         if m:
@@ -36,6 +38,11 @@ def parse_attic_archives(lines):
         archives.append(line.split(' ')[0])
     return archives
 
+def parse_rdiff_repo(path):
+    lines = subprocess.check_output(['rdiff-backup', '--list-increments', path]).decode('utf-8').split('\n')
+    print(lines)
+    return parse_rdiff_increments(lines)
+
 def run():
     src = sys.argv[1]
     dst = sys.argv[2]
@@ -48,8 +55,7 @@ def run():
     if not os.path.exists(os.path.join(dst, 'config')):
         fail('"%s" does not look like attic repository' % dst)
 
-    output = subprocess.check_output(['rdiff-backup', '--list-increments', src]).split('\n')
-    increments = parse_rdiff_increments(output)
+    increments = parse_rdiff_repo(src)
 
     # TODO get attic archive list
     attic = subprocess.check_output(['attic', 'list'])

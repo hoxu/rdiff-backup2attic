@@ -50,6 +50,14 @@ Current mirror: Thu Sep 17 18:45:04 2015""".split('\n')
         self.assertEqual(archives[0], '2015-09-17T18:44:09')
         self.assertEqual(archives[1], '2015-09-17T18:45:04')
 
+    def test_parse_rdiff_repo(self):
+        increments = rb2a.parse_rdiff_repo(rdiffrepo)
+        print(increments)
+        self.assertEqual(len(increments), 2)
+        # second can wary, depending on how long rdiff-backup takes to start up
+        self.assertEqual(increments[0][:16], '2015-10-01T08:00')
+        self.assertEqual(increments[1][:16], '2015-10-01T09:00')
+
     # TODO check logic for choosing increment->archive conversion
     # TODO integration test: create testdata, rdiff-backup repo, attic repository
     # TODO   test rdiff-backup -l
