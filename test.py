@@ -1,7 +1,36 @@
 #!/usr/bin/env python3
+import os
+import shutil
+import subprocess
+import tempfile
 import unittest
 
 import rb2a
+
+def setUpModule():
+    print('Creating fixture...')
+    global tempdir, testdata, rdiffrepo
+    tempdir = tempfile.mkdtemp('rb2a_unittest')
+
+    # first rdiff-backup increment
+    testdata = os.path.join(tempdir, 'testdata')
+    os.mkdir(testdata)
+    with open(os.path.join(testdata, 'data'), 'w') as f:
+        f.write('first')
+
+    rdiffrepo = os.path.join(tempdir, 'rdiff-repo')
+    subprocess.check_call(['faketime', '2015-10-01 08:00:00', 'rdiff-backup', testdata, rdiffrepo])
+
+    # second rdiff-backup increment
+    with open(os.path.join(testdata, 'data'), 'w') as f:
+        f.write('second')
+
+    subprocess.check_call(['faketime', '2015-10-01 09:00:00', 'rdiff-backup', testdata, rdiffrepo])
+    print('OK')
+
+def tearDownModule():
+    global tempdir
+    shutil.rmtree(tempdir)
 
 class TestRB2A(unittest.TestCase):
     def test_rdiff_parse(self):
