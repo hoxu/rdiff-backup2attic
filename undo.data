@@ -20,3 +20,6 @@ time 1443860893
 old [description:"be more verbose" entry:"1443859489" status:"pending" uuid:"b1c350c3-c5c1-419c-a8d0-8365dc178550"]
 new [description:"be more verbose" end:"1443860893" entry:"1443859489" modified:"1443860893" status:"completed" uuid:"b1c350c3-c5c1-419c-a8d0-8365dc178550"]
 ---
+time 1443861058
+new [description:"license" entry:"1443861058" status:"pending" uuid:"9a51bb95-2184-438a-b34d-da94c54a5973"]
+---
