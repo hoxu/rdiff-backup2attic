@@ -81,6 +81,7 @@ def run():
         #  check whether attic contains rdiff-backup increment as archive
         if increment in archives:
             print('Skipping already converted increment "%s"' % increment)
+            continue
         convert_increment(src, dst, increment)
 
 if __name__ == '__main__':
