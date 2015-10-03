@@ -2,3 +2,4 @@
 [description:"README" entry:"1443859411" status:"pending" uuid:"ea084ba5-b2e2-4957-a781-c844858f7e2e"]
 [description:"option: archive prefix for \"attic create\"" entry:"1443859436" status:"pending" uuid:"fd330ec9-d678-4809-9bea-2df26e7260b1"]
 [description:"be more verbose" entry:"1443859489" status:"pending" uuid:"b1c350c3-c5c1-419c-a8d0-8365dc178550"]
+[description:"option: convert only one increment" entry:"1443859499" status:"pending" uuid:"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"]

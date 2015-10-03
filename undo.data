@@ -10,3 +10,6 @@ new [description:"option: archive prefix for \"attic create\"" entry:"1443859436
 time 1443859489
 new [description:"be more verbose" entry:"1443859489" status:"pending" uuid:"b1c350c3-c5c1-419c-a8d0-8365dc178550"]
 ---
+time 1443859499
+new [description:"option: convert only one increment" entry:"1443859499" status:"pending" uuid:"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"]
+---
