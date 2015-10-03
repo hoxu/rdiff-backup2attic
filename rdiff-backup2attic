@@ -71,6 +71,7 @@ def convert_increment(rdiff_dir, attic_dir, increment):
 
 def run():
     parser = argparse.ArgumentParser(description = 'Convert rdiff-backup repository increments into attic repository archives')
+    parser.add_argument('-1', '--one', action = 'store_true')
     parser.add_argument('rdiff_dir', help = 'source rdiff-backup repository')
     parser.add_argument('attic_dir', help = 'destination attic repository')
 
@@ -104,6 +105,10 @@ def run():
             logging.info('Skipping already converted increment "%s"' % increment)
             continue
         convert_increment(src, dst, increment)
+
+        if args.one:
+            logging.info('--one requested, so bailing out after first conversion')
+            break
 
 if __name__ == '__main__':
     run()
