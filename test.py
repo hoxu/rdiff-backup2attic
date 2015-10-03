@@ -11,6 +11,7 @@ def setUpModule():
     print('Creating fixture...')
     global tempdir, testdata, rdiffrepo
     tempdir = tempfile.mkdtemp('rb2a_unittest')
+    os.environ['TMPDIR'] = tempdir
 
     # first rdiff-backup increment
     testdata = os.path.join(tempdir, 'testdata')
@@ -89,6 +90,19 @@ Current mirror: Thu Sep 17 18:45:04 2015""".split('\n')
 
         shutil.rmtree(attic_dir)
         shutil.rmtree(destination_dir)
+
+        self.assertEqual(len(archives), 1)
+        self.assertEqual(archives[0], '2015-10-01T08:00:00')
+
+    def test_convert_increment(self):
+        attic_dir = os.path.join(tempdir, 'attic')
+        subprocess.check_call(['attic', 'init', attic_dir])
+
+        rb2a.convert_increment(rdiffrepo, attic_dir, '2015-10-01T08:00:00')
+
+        archives = rb2a.parse_attic_repo(attic_dir)
+
+        shutil.rmtree(attic_dir)
 
         self.assertEqual(len(archives), 1)
         self.assertEqual(archives[0], '2015-10-01T08:00:00')

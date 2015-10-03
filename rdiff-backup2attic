@@ -5,7 +5,9 @@ import datetime
 import os
 import re
 import subprocess
+import shutil
 import sys
+import tempfile
 
 # TODO make incremental (can run multiple times)
 # TODO usage: $0 rdiff-backup-repo repo.attic
@@ -56,6 +58,14 @@ def restore_rdiff_increment(rdiff_dir, destination_dir, increment):
 
 def attic_create(attic_dir, archive_name, path):
     subprocess.check_call(['attic', 'create', '%s::%s' % (attic_dir, archive_name), path])
+
+def convert_increment(rdiff_dir, attic_dir, increment):
+    destination_dir = tempfile.mkdtemp('rb2a')
+
+    restore_rdiff_increment(rdiff_dir, destination_dir, increment)
+    attic_create(attic_dir, increment, destination_dir)
+
+    shutil.rmtree(destination_dir)
 
 def run():
     src = sys.argv[1]
