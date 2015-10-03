@@ -66,6 +66,15 @@ Current mirror: Thu Sep 17 18:45:04 2015""".split('\n')
         self.assertEqual(increments[0][:16], '2015-10-01T08:00')
         self.assertEqual(increments[1][:16], '2015-10-01T09:00')
 
+    def test_restore_rdiff_increment(self):
+        destination_dir = os.path.join(tempdir, 'restore')
+        rb2a.restore_rdiff_increment(rdiffrepo, destination_dir, '2015-10-01T08:00:00')
+
+        with open(os.path.join(tempdir, 'restore', 'data')) as f:
+            data = f.read()
+
+        self.assertEqual(data, 'first')
+
     # TODO check logic for choosing increment->archive conversion
     # TODO integration test: create testdata, rdiff-backup repo, attic repository
     # TODO   test rdiff-backup -l

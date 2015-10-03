@@ -45,6 +45,9 @@ def parse_rdiff_repo(path):
 def get_increments_to_convert(increments, archives):
     return [increment for increment in increments if increment not in archives]
 
+def restore_rdiff_increment(rdiff_dir, destination_dir, increment):
+    subprocess.check_call(['rdiff-backup', '-r', increment, rdiff_dir, destination_dir])
+
 def run():
     src = sys.argv[1]
     dst = sys.argv[2]
