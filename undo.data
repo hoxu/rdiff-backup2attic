@@ -35,3 +35,7 @@ time 1443862659
 old [description:"option: convert only one increment" entry:"1443859499" status:"pending" uuid:"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"]
 new [description:"option: convert only one increment" end:"1443862659" entry:"1443859499" modified:"1443862659" status:"completed" uuid:"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"]
 ---
+time 1443862795
+old [description:"license" entry:"1443861058" status:"pending" uuid:"9a51bb95-2184-438a-b34d-da94c54a5973"]
+new [description:"license" end:"1443862795" entry:"1443861058" modified:"1443862795" status:"completed" uuid:"9a51bb95-2184-438a-b34d-da94c54a5973"]
+---
