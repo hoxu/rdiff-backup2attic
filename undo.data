@@ -7,3 +7,6 @@ new [description:"README" entry:"1443859411" status:"pending" uuid:"ea084ba5-b2e
 time 1443859436
 new [description:"option: archive prefix for \"attic create\"" entry:"1443859436" status:"pending" uuid:"fd330ec9-d678-4809-9bea-2df26e7260b1"]
 ---
+time 1443859489
+new [description:"be more verbose" entry:"1443859489" status:"pending" uuid:"b1c350c3-c5c1-419c-a8d0-8365dc178550"]
+---
