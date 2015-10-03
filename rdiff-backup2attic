@@ -9,9 +9,6 @@ import shutil
 import sys
 import tempfile
 
-# TODO usage: $0 rdiff-backup-repo repo.attic
-# TODO option: archive prefix for "attic create"
-
 def fail(msg):
     print(msg)
     sys.exit(1)
