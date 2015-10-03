@@ -13,3 +13,6 @@ new [description:"be more verbose" entry:"1443859489" status:"pending" uuid:"b1c
 time 1443859499
 new [description:"option: convert only one increment" entry:"1443859499" status:"pending" uuid:"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"]
 ---
+time 1443859637
+new [description:"github repo" entry:"1443859637" status:"pending" uuid:"11a40b90-6efe-4e2b-976a-0c5f505e81f8"]
+---
