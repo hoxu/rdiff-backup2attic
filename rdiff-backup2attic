@@ -35,6 +35,8 @@ def parse_rdiff_increments(lines):
 def parse_attic_archives(lines):
     archives = []
     for line in lines:
+        if len(line) == 0:
+            continue
         archives.append(line.split(' ')[0])
     return archives
 
@@ -42,11 +44,18 @@ def parse_rdiff_repo(path):
     lines = subprocess.check_output(['rdiff-backup', '--list-increments', path]).decode('utf-8').split('\n')
     return parse_rdiff_increments(lines)
 
+def parse_attic_repo(path):
+    lines = subprocess.check_output(['attic', 'list', path]).decode('utf-8').split('\n')
+    return parse_attic_archives(lines)
+
 def get_increments_to_convert(increments, archives):
     return [increment for increment in increments if increment not in archives]
 
 def restore_rdiff_increment(rdiff_dir, destination_dir, increment):
     subprocess.check_call(['rdiff-backup', '-r', increment, rdiff_dir, destination_dir])
+
+def attic_create(attic_dir, archive_name, path):
+    subprocess.check_call(['attic', 'create', '%s::%s' % (attic_dir, archive_name), path])
 
 def run():
     src = sys.argv[1]

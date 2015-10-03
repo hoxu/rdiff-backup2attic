@@ -77,6 +77,22 @@ Current mirror: Thu Sep 17 18:45:04 2015""".split('\n')
 
         self.assertEqual(data, 'first')
 
+    def test_attic_create(self):
+        destination_dir = os.path.join(tempdir, 'restore')
+        rb2a.restore_rdiff_increment(rdiffrepo, destination_dir, '2015-10-01T08:00:00')
+
+        attic_dir = os.path.join(tempdir, 'attic')
+        subprocess.check_call(['attic', 'init', attic_dir])
+        rb2a.attic_create(attic_dir, '2015-10-01T08:00:00', destination_dir)
+
+        archives = rb2a.parse_attic_repo(attic_dir)
+
+        shutil.rmtree(attic_dir)
+        shutil.rmtree(destination_dir)
+
+        self.assertEqual(len(archives), 1)
+        self.assertEqual(archives[0], '2015-10-01T08:00:00')
+
     # TODO check logic for choosing increment->archive conversion
     # TODO integration test: create testdata, rdiff-backup repo, attic repository
     # TODO   test rdiff-backup -l
