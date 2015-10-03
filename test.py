@@ -61,7 +61,6 @@ Current mirror: Thu Sep 17 18:45:04 2015""".split('\n')
     # integration tests below
     def test_parse_rdiff_repo(self):
         increments = rb2a.parse_rdiff_repo(rdiffrepo)
-        print(increments)
         self.assertEqual(len(increments), 2)
         # second can wary, depending on how long rdiff-backup takes to start up
         self.assertEqual(increments[0][:16], '2015-10-01T08:00')

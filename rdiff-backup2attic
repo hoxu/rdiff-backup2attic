@@ -40,7 +40,6 @@ def parse_attic_archives(lines):
 
 def parse_rdiff_repo(path):
     lines = subprocess.check_output(['rdiff-backup', '--list-increments', path]).decode('utf-8').split('\n')
-    print(lines)
     return parse_rdiff_increments(lines)
 
 def get_increments_to_convert(increments, archives):
