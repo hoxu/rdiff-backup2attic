@@ -31,3 +31,7 @@ time 1443862192
 old [description:"usage instructions" entry:"1443859401" status:"pending" uuid:"40ca3710-66bc-4e70-9e34-4e88d3d102e2"]
 new [description:"usage instructions" end:"1443862192" entry:"1443859401" modified:"1443862192" status:"completed" uuid:"40ca3710-66bc-4e70-9e34-4e88d3d102e2"]
 ---
+time 1443862659
+old [description:"option: convert only one increment" entry:"1443859499" status:"pending" uuid:"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"]
+new [description:"option: convert only one increment" end:"1443862659" entry:"1443859499" modified:"1443862659" status:"completed" uuid:"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"]
+---

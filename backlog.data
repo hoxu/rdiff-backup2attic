@@ -8,3 +8,4 @@
 {"description":"license","entry":"20151003T083058Z","status":"pending","uuid":"9a51bb95-2184-438a-b34d-da94c54a5973"}
 {"description":"README","end":"20151003T083443Z","entry":"20151003T080331Z","modified":"20151003T083443Z","status":"completed","uuid":"ea084ba5-b2e2-4957-a781-c844858f7e2e"}
 {"description":"usage instructions","end":"20151003T084952Z","entry":"20151003T080321Z","modified":"20151003T084952Z","status":"completed","uuid":"40ca3710-66bc-4e70-9e34-4e88d3d102e2"}
+{"description":"option: convert only one increment","end":"20151003T085739Z","entry":"20151003T080459Z","modified":"20151003T085739Z","status":"completed","uuid":"ea0cae11-7271-4fc8-b2b4-b3aaf3ae4c0a"}
