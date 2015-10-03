@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Copyright (c) 2015 Heikki Hokkanen <hoxu at users.sf.net>
 # License: GPLv2 or later
+import argparse
 import datetime
 import logging
 import os
@@ -69,8 +70,14 @@ def convert_increment(rdiff_dir, attic_dir, increment):
     shutil.rmtree(destination_dir)
 
 def run():
-    src = sys.argv[1]
-    dst = sys.argv[2]
+    parser = argparse.ArgumentParser(description = 'Convert rdiff-backup repository increments into attic repository archives')
+    parser.add_argument('rdiff_dir', help = 'source rdiff-backup repository')
+    parser.add_argument('attic_dir', help = 'destination attic repository')
+
+    args = parser.parse_args()
+
+    src = args.rdiff_dir
+    dst = args.attic_dir
     logging.info('Source rdiff-backup directory: %s' % src)
     logging.info('Destination attic directory:%s' % dst)
 
