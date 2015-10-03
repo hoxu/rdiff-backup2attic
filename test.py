@@ -73,6 +73,8 @@ Current mirror: Thu Sep 17 18:45:04 2015""".split('\n')
         with open(os.path.join(tempdir, 'restore', 'data')) as f:
             data = f.read()
 
+        shutil.rmtree(destination_dir)
+
         self.assertEqual(data, 'first')
 
     # TODO check logic for choosing increment->archive conversion
