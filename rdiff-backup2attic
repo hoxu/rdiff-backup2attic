@@ -9,10 +9,8 @@ import shutil
 import sys
 import tempfile
 
-# TODO make incremental (can run multiple times)
 # TODO usage: $0 rdiff-backup-repo repo.attic
 # TODO option: archive prefix for "attic create"
-# TODO option: tmpdir
 
 def fail(msg):
     print(msg)

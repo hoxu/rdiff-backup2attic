@@ -107,11 +107,5 @@ Current mirror: Thu Sep 17 18:45:04 2015""".split('\n')
         self.assertEqual(len(archives), 1)
         self.assertEqual(archives[0], '2015-10-01T08:00:00')
 
-    # TODO check logic for choosing increment->archive conversion
-    # TODO integration test: create testdata, rdiff-backup repo, attic repository
-    # TODO   test rdiff-backup -l
-    # TODO   test attic list
-    # TODO   test conversion of one backup
-
 if __name__ == '__main__':
     unittest.main()
