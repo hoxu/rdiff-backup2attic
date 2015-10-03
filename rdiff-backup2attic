@@ -80,20 +80,13 @@ def run():
         fail('"%s" does not look like attic repository' % dst)
 
     increments = parse_rdiff_repo(src)
-
-    # TODO get attic archive list
-    attic = subprocess.check_output(['attic', 'list'])
-    archives = []
+    archives = parse_attic_repo(dst)
 
     for increment in increments:
         #  check whether attic contains rdiff-backup increment as archive
         if increment in archives:
             print('Skipping already converted increment "%s"' % increment)
-        # TODO restore rdiff-backup increment
-        # TODO run attic create on it
-        # TODO delete temp dir
-
-    # TODO restore current too
+        convert_increment(src, dst, increment)
 
 if __name__ == '__main__':
-    pass
+    run()
