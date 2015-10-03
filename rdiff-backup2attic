@@ -2,12 +2,15 @@
 # Copyright (c) 2015 Heikki Hokkanen <hoxu at users.sf.net>
 # License: GPLv2 or later
 import datetime
+import logging
 import os
 import re
 import subprocess
 import shutil
 import sys
 import tempfile
+
+logging.basicConfig(format = '%(asctime)-15s %(levelname)s %(message)s', level = logging.INFO)
 
 def fail(msg):
     print(msg)
@@ -49,12 +52,15 @@ def get_increments_to_convert(increments, archives):
     return [increment for increment in increments if increment not in archives]
 
 def restore_rdiff_increment(rdiff_dir, destination_dir, increment):
+    logging.info('Restoring rdiff-backup increment: %s' % increment)
     subprocess.check_call(['rdiff-backup', '-r', increment, rdiff_dir, destination_dir])
 
 def attic_create(attic_dir, archive_name, path):
+    logging.info('Creating attic archive: %s' % archive_name)
     subprocess.check_call(['attic', 'create', '%s::%s' % (attic_dir, archive_name), path])
 
 def convert_increment(rdiff_dir, attic_dir, increment):
+    logging.info('Converting increment: %s' % increment)
     destination_dir = tempfile.mkdtemp('rb2a')
 
     restore_rdiff_increment(rdiff_dir, destination_dir, increment)
@@ -65,6 +71,8 @@ def convert_increment(rdiff_dir, attic_dir, increment):
 def run():
     src = sys.argv[1]
     dst = sys.argv[2]
+    logging.info('Source rdiff-backup directory: %s' % src)
+    logging.info('Destination attic directory:%s' % dst)
 
     # check that source is rdiff-backup repo
     if not os.path.exists(os.path.join(src, 'rdiff-backup-data')):
@@ -75,12 +83,18 @@ def run():
         fail('"%s" does not look like attic repository' % dst)
 
     increments = parse_rdiff_repo(src)
+    logging.info('Found %d increments in rdiff-backup directory' % len(increments))
+
     archives = parse_attic_repo(dst)
+    logging.info('Found %d archives in attic directory' % len(archives))
+
+    to_convert = list(set(increments) - set(archives))
+    logging.info('New increments available for conversion: %d' % len(to_convert))
 
     for increment in increments:
         #  check whether attic contains rdiff-backup increment as archive
         if increment in archives:
-            print('Skipping already converted increment "%s"' % increment)
+            logging.info('Skipping already converted increment "%s"' % increment)
             continue
         convert_increment(src, dst, increment)
 
